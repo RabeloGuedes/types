@@ -4,20 +4,27 @@ CFLAGS = -Wall -Wextra -Werror -g
 INC = -I ./includes
 NAME = libtypes
 
-SRC_FOLDER = srcs/
-SRC_FILES = typestr.c
-OBJ_FOLDER = objs/
-OBJ_FILES = $(SRC_FILES:%.c=%.o)
+SRC_DIR = srcs/
+STRING_DIR = $(SRC_DIR)string/
+SRC_FILES = $(STRING_DIR)typestr.c
+OBJ_DIR = objs/
+OBJ_FILES = $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRC_FILES))
 
 all: $(NAME)
 
 $(NAME): $(OBJ_FILES)
+	@ar rc $(NAME) $(OBJ_FILES)
+
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c
+	@mkdir -p $(dir $@)
+	@echo "compiling: $< -> $@"
+	@$(COMP) -c $(CFLAGS) $(INC) $< -o $@
 
 clean:
-	rm -rf $(OBJ_FILES)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 

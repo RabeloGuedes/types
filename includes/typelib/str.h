@@ -8,11 +8,11 @@
 typedef struct string string;
 
 struct string {
-    size_t len;
-    void (*print)(string *);
-    string *(*copy)(string *);
-    bool (*contains)(string *, char *);
-    void (*join)(string *);
+    size_t	(*len)(string *);
+    void	(*print)(string *);
+    string	*(*copy)(string *);
+    bool	(*contains)(string *, char *);
+    void	(*join)(string *);
 };
 
 string	*String(char *s);

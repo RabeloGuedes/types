@@ -13,18 +13,20 @@ size_t	stringlcopy(char *dst, char *src, size_t dst_size);
 void	memcopy(void *dst, void *src, size_t n);
 char	*stringfind(char *s, char *sub);
 char	*stringlconcat(char *dst, char *src, size_t dst_size);
+size_t	len(string *s);
 
 struct	p_string {
 	// Public
-    size_t len;
-    void (*print)(string *);
-    string *(*copy)(string *);
-    bool (*contains)(string *, char *);
-    void (*join)(string *);
-
+	size_t	(*len)(string *);
+    void	(*print)(string *);
+    string	*(*copy)(string *);
+    bool	(*contains)(string *, char *);
+    void	(*join)(string *);
+	
 	// Private
-    size_t size;
-    char *string;
+    size_t	length;
+    size_t	size;
+    char	*string;
 };
 
 string *String(char *s)
@@ -33,7 +35,8 @@ string *String(char *s)
 
     if (!ptr)
         return (NULL);
-    ptr->len = stringlen(s);
+    ptr->length = stringlen(s);
+	ptr->len = &len;
     ptr->size = ptr->len;
     ptr->print = &print;
     ptr->copy = &copy;
@@ -45,6 +48,13 @@ string *String(char *s)
 		return (NULL);
 	}
     return (string *)ptr;
+}
+
+size_t	len(string * s)
+{
+	if (!s)
+		return (0);
+	return (stringlen(((p_string *)(s))->length));
 }
 
 void print(string *s)

@@ -8,7 +8,7 @@ MAIN = main.cpp
 
 SRC_DIR = srcs/
 NUMBER_DIR = $(SRC_DIR)number/
-SRC_FILES = $(NUMBER_DIR)Number.cpp
+SRC_FILES = $(NUMBER_DIR)num.cpp
 OBJ_DIR = objs/
 OBJ_FILES = $(patsubst $(SRC_DIR)%.cpp,$(OBJ_DIR)%.o,$(SRC_FILES))
 

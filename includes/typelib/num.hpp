@@ -4,25 +4,22 @@
 # include <string>
 # include <iostream>
 
-class Number {
+class num {
 	public:
-		Number(int n);
-		Number(long long n);
-		Number(unsigned long n);
-		Number(unsigned long long n);
-		Number(float n);
-		Number(double n);
-		Number(char *n);
-		Number(std::string);
-		Number(const Number &obj);
-		Number &operator=(const Number &obj);
-		~Number();
+		num(long long n);
+		num(unsigned long long n);
+		num(double n);
+		num(std::string);
+		num(const num &obj);
+		num &operator=(const num &obj);
+		~num();
 
 		// utilities
 		void	show(void);
 	
 	private:
-		std::string internal;
+		std::string	internal;
+		bool		hasDot;
 };
 
 #endif

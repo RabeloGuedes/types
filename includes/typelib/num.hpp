@@ -6,6 +6,7 @@
 
 class num {
 	public:
+		num(void);
 		num(long long n);
 		num(unsigned long long n);
 		num(double n);
@@ -13,6 +14,7 @@ class num {
 		num(const num &obj);
 		num &operator=(const num &obj);
 		~num();
+		num	operator+(const num &obj);
 
 		// utilities
 		void	show(void);

@@ -1,8 +1,12 @@
 #include <typelib/num.hpp>
 
 int	main(void) {
-	num	n("-2103120312031203012.04129310341.235f41820941293848230481092840");
+	num	n("172");
+	num	t("-15");
 
 	n.show();
+	t.show();
+	num p = n + t;
+	p.show();
 	return (0);
 }

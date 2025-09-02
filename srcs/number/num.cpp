@@ -1,5 +1,7 @@
 #include <typelib/num.hpp>
 
+num::num(void): internal("0") {}
+
 num::num(unsigned long long n): hasDot(false) {
 	if (n < 0)
 		this->internal += "-";
@@ -59,6 +61,49 @@ num	&num::operator=(const num &obj) {
 	return (*this);
 }
 
+num	num::operator+(const num &obj) {
+	char			carry = 0;
+	char			placeResult = 0;
+	size_t			pos = 0;
+	std::string		res;
+	std::string 	l(this->internal.rbegin(), this->internal.rend());
+	std::string 	r(obj.internal.rbegin(), obj.internal.rend());
+
+	for (; pos < l.length() && pos < r.length(); pos++) {
+		placeResult = (l[pos] - 48) + (r[pos] - 48) + carry;
+		if (placeResult > 9) {
+			carry = placeResult / 10;
+			placeResult %= 10;
+		} else
+			carry = 0;
+		res += placeResult + 48;
+	}
+
+	for (; pos < l.length(); pos++) {
+		placeResult = l[pos] - 48 + carry;
+		if (placeResult > 9) {
+			carry = placeResult / 10;
+			placeResult %= 10;
+		} else
+			carry = 0;
+		res += placeResult + 48;
+	}
+
+	for (; pos < r.length(); pos++) {
+		placeResult = r[pos] - 48 + carry;
+		if (placeResult > 9) {
+			carry = placeResult / 10;
+			placeResult %= 10;
+		} else
+			carry = 0;
+		res += placeResult + 48;
+	}
+
+	if (carry)
+		res += carry + 48;
+	num n = num(std::string(res.rbegin(), res.rend()));
+	return (n);
+}
 
 num::~num(void) {
 	
